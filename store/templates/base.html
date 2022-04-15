@@ -8,32 +8,115 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <!-- google font linked  -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap"
         rel="stylesheet">
     {% block title %}
 
     {% endblock title%}
+    <!-- bootstrap linked  -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- font awesome linked  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <!-- css linked  -->
     <link rel="stylesheet" href="{% static 'css/style.css'%}">
 
 </head>
 
 <body>
-    <header class="">
-        
+    <header class="nav-section container ">
+        <!-- navbar section start  -->
+
+        <nav class="navbar navbar-expand-lg navbar-light rounded" style="background-color: #B9E3C6;">
+            <div class="container-fluid ">
+                <a class="navbar-brand" href="#"><img class="img-logo" src="{% static 'images/logo.png' %}" alt=""></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link active fs-5 text text-dark" aria-current="page" href="#">Home</a>
+                        <a class="nav-link fs-5 text text-dark" href="#">Shops</a>
+                        <a class="nav-link fs-5 text text-dark" href="#">About</a>
+                        <a class="nav-link  fs-5 text text-dark" href="#">Contact</a>
+                        <a class="nav-link  fs-5 text text-dark" href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+                        <a class="nav-link fs-5 text text-dark" href="#"><i class="fa-solid fa-user"></i> Log In</a>
+
+                    </div>
+                    
+                </div>
+            </div>
+        </nav>
+
+
     </header>
+
+
+
 
     {% block content%}
 
     {% endblock content %}
 
-    <footer>
+    <footer class="container bg-dark rounded px-3">
         
+            <div class="row mt-5">
+              <div class="col-lg-6 text-white mt-3 col-md-12 px-4 subscribe-div pb-4">
+               <h3>Don't Miss Out</h3>
+               <p><small>Sign up for the latest offers, campaign and discount coupons.</small>  </p>
+               <div class="mt-2">
+                   <input class="input-email" type="text" placeholder="Enter Your Email Address">
+                   <button class=" subscribe-btn" style="background-color: #B9E3C6;">Subscribe</button>
+               </div>
+               <p class="mt-2"><small>This site intended for BD consumers. By subscribing, you understand and agree that your data will be collected and used subject to our BD <a href="#">Privacy Policy</a> and <a href="#">Terms of Use</a>. </small></p>
+
+               <!-- social media -->
+               <div class=" fs-4 text ">
+                <i class="fa-brands fa-facebook mx-1"></i>
+                <i class="fa-brands fa-instagram mx-1"></i>
+                <i class="fa-brands fa-whatsapp"></i>
+                <i class="fa-brands fa-twitter mx-1"></i>
+                <i class="fa-brands fa-google-plus mx-1"></i>
+                <i class="fa-brands fa-youtube mx-1"></i>
+               </div>
+              </div>
+              
+              <div class="col-lg-2 text-white mt-3 col-md-6 px-4">
+                <h3 class="fs-5 text">Company</h3>
+                <ul  class="footer-list">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Experts and Spokesmodels</a></li>
+                </ul>
+              </div>
+              <div class="col-lg-2 text-white mt-3 col-md-6 px-4">
+                <h3 class="fs-5 text ">Customer Service</h3>
+                <ul class="footer-list">
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">My Account</a></li>
+                    <li><a href="#">Store Locator</a></li>
+                    <li><a href="#">Redeem rewards</a></li>
+                    
+                </ul>
+                </a>
+              </div>
+              <div class="col-lg-2 text-white mt-3 col-md-6 px-4">
+                <h3 class="fs-5 text">More To Explore</h3>
+                <ul class="footer-list">
+                    <li><a href="#">Style Blogs</a></li>
+                    <li><a href="#">Our Goals</a></li>
+                    <li><a href="#">Offers</a></li>
+                    <li><a href="#">Beleive in Roots</a></li>
+                    
+                </ul>
+              </div>
+              
+         
     </footer>
 
 
