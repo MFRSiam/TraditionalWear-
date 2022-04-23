@@ -2,11 +2,11 @@
 {% load static %}
 
 {% block content %}
-    <h2>Sign Up(Customer)</h2>
+    <h2>Sign Up(Supplier)</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Sign Up</button>
     </form>
-    <a href="{% url 'supplier_signup' %}">Sign-Up As A Supplier Instead ?</a>
+    <a href="{% url 'signup' %}">Sign-Up As A Customer Instead ?</a>
 {% endblock content %}

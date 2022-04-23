@@ -1,0 +1,19 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title %}
+<title>Intisher Traditional Ware</title>
+{% endblock title%}
+
+
+{% block content %}
+<div class="post-entry">
+    <h2>{{ each_product.Name }}</h2>
+    <p>{{ each_product.Price }}</p>
+    <p>{{ each_product.Product_Type }}</p>
+    <p>{{ each_product.Description }}</p>
+    <p>{{ each_product.Brand }}</p>
+    <img src="{{ each_product.ProductImage.url }}">
+</div>
+
+{% endblock content %}

@@ -3,9 +3,12 @@
 
 
 {% block content %}
-    <h1>Please Select Your Pefered Action To Login </h1>
-    <a href="">Login As A Customer</a>
-    <a href="">Login As A Supplier</a>
+    <h2>Log In</h2>
+    <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Log In</button>
+    </form>
     <h2>Dont Have a Account</h2>
     <a href="{% url 'signup' %}">Sign-UP</a>
 {% endblock content %}
