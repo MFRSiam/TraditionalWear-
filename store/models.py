@@ -1,11 +1,10 @@
-import this
 from django.db import models
-from user.models import Customer,Supplier
+from user.models import MyUser
 import datetime
 # Create your models here.
 
 def TransactionIDgenerator(Products):
-    genID = str(int(Products.objects.last().Product_id) * 10)
+    genID = str(int(Products.objects.last().Price) * 10)
     genType = str(Products.objects.last().Product_Type)
     genTime = str(datetime.datetime.now())
     genString = genID + " "+ genTime + " "+ genType
@@ -31,7 +30,7 @@ class Products(models.Model):
 class Orders(models.Model):
     TransactionID =models.CharField(primary_key=True,default=TransactionIDgenerator(Products),max_length=50)
     Date = models.DateTimeField(auto_now_add=True)
-    Customer_Id = models.ForeignKey(Customer,on_delete=models.CASCADE)
+    Customer_Id = models.ForeignKey(MyUser,on_delete=models.CASCADE)
     def __str__(self) -> str:
         return self.TransactionID
 
@@ -43,7 +42,7 @@ class OrderedProductInfo(models.Model):
     
 class Review(models.Model):
     ProductId = models.ForeignKey(Products,on_delete=models.CASCADE)
-    CustomerId = models.ForeignKey(Customer,on_delete=models.CASCADE)
+    CustomerId = models.ForeignKey(MyUser,on_delete=models.CASCADE)
     ReviewDate = models.DateTimeField(auto_now_add=True)
     Ratings = models.IntegerField()
     Description = models.TextField(max_length=1000)
@@ -51,5 +50,5 @@ class Review(models.Model):
         return self.ProductId + " Has " + self.Ratings +" Rating"
 
 class SupplierProductInfo(models.Model):
-    SupplierID = models.ForeignKey(Supplier,on_delete=models.CASCADE)
+    SupplierID = models.ForeignKey(MyUser,on_delete=models.CASCADE)
     ProductID = models.ForeignKey(Products,on_delete=models.CASCADE)

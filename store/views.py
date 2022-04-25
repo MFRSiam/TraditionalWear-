@@ -13,3 +13,7 @@ class DetailsPage(DetailView):
     model = Products
     template_name = 'details.html'
     context_object_name = 'each_product'
+    
+
+def AboutPageView(request):
+    return render(request,'about.html')
