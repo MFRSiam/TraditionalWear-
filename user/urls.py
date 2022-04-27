@@ -9,6 +9,6 @@ urlpatterns = [
     path('login/',LoginType ,name='login'),
     path('user_login',UserLogin.as_view(),name='user_login'),
     path('logout/',UserLogout.as_view(),name='logout'),
-    path('user_details/<int:UserId>',UserInfoPanel.as_view(),name='user-info')
+    path('user_details/<int:pk>',UserInfoPanel.as_view(),name='user-info')
     # path('<int:pk>')
 ]
