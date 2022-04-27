@@ -42,15 +42,17 @@
                 <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                         <a class="nav-link active fs-5 text text-dark" aria-current="page" href="{% url 'home' %}">Home</a>
-                        <a class="nav-link fs-5 text text-dark" href="#">Shop</a>
+                        <a class="nav-link fs-5 text text-dark" href="{% url 'shop' %}">Shop</a>
                         <a class="nav-link fs-5 text text-dark" href="{% url 'about' %}">About</a>
-                        <a class="nav-link  fs-5 text text-dark" href="#">Contact</a>
+                        <a class="nav-link  fs-5 text text-dark" href="{% url 'contacts' %}">Contact</a>
                         <!-- <a class="nav-link  fs-5 text text-dark" href="#"><i class="fa-solid fa-cart-shopping"></i></a> -->
                         {% if user.is_authenticated %}
                             {% if user.is_supplier %}
-                                <a class="nav-link  fs-5 text text-dark" href="{% url 'logout' %}">{{ user.username }} Supplier</a>
+                                <a class="nav-link  fs-5 text text-dark" href="{% url 'user-info' user.id %}">{{ user.username }} Supplier</a>
+                            {% elif user.is_superuser %}
+                            <a class="nav-link  fs-5 text text-dark" href="{% url 'user-info' user.id %}">{{ user.username }} Admin</a>
                             {% else %}
-                                <a class="nav-link  fs-5 text text-dark" href="{% url 'logout' %}">{{ user.username }} Customer</a>
+                                <a class="nav-link  fs-5 text text-dark" href="{% url 'user-info' user.id %}">{{ user.username }} Customer</a>
                             {% endif %}
                         {% else %}
                             <a class="nav-link fs-5 text text-dark" href="{% url 'login' %}"><i class="fa-solid fa-user"></i> Log In</a>

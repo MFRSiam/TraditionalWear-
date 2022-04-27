@@ -1,14 +1,9 @@
+from asyncio.windows_events import NULL
 from django.db import models
 from user.models import MyUser
 import datetime
 # Create your models here.
 
-def TransactionIDgenerator(Products):
-    genID = str(int(Products.objects.last().Price) * 10)
-    genType = str(Products.objects.last().Product_Type)
-    genTime = str(datetime.datetime.now())
-    genString = genID + " "+ genTime + " "+ genType
-    return genString
 
 
 
@@ -26,29 +21,28 @@ class Products(models.Model):
         return self.Name + " ID: " + sid
 
 
-
 class Orders(models.Model):
-    TransactionID =models.CharField(primary_key=True,default=TransactionIDgenerator(Products),max_length=50)
+    TransactionID =models.CharField(primary_key=True,default='XXX',max_length=50)
     Date = models.DateTimeField(auto_now_add=True)
-    Customer_Id = models.ForeignKey(MyUser,on_delete=models.CASCADE)
+    Customer_Id = models.ForeignKey(MyUser,on_delete=models.CASCADE,db_constraint=False)
     def __str__(self) -> str:
         return self.TransactionID
 
 class OrderedProductInfo(models.Model):
-    TransactionID = models.ForeignKey(Orders,on_delete=models.CASCADE)
-    ProductID = models.ForeignKey(Products,on_delete=models.CASCADE)
+    TransactionID = models.ForeignKey(Orders,on_delete=models.CASCADE,db_constraint=False)
+    ProductID = models.ForeignKey(Products,on_delete=models.CASCADE,db_constraint=False,default=NULL)
     def __str__(self) -> str:
         return self.ProductID + " " + self.TransactionID
     
 class Review(models.Model):
-    ProductId = models.ForeignKey(Products,on_delete=models.CASCADE)
-    CustomerId = models.ForeignKey(MyUser,on_delete=models.CASCADE)
+    ProductId = models.ForeignKey(Products,on_delete=models.CASCADE,db_constraint=False)
+    CustomerId = models.ForeignKey(MyUser,on_delete=models.CASCADE,db_constraint=False)
     ReviewDate = models.DateTimeField(auto_now_add=True)
     Ratings = models.IntegerField()
     Description = models.TextField(max_length=1000)
     def __str__(self):
-        return self.ProductId + " Has " + self.Ratings +" Rating"
+        return str(self.ProductId) + " Has " + str(self.Ratings) +" Rating"
 
 class SupplierProductInfo(models.Model):
-    SupplierID = models.ForeignKey(MyUser,on_delete=models.CASCADE)
-    ProductID = models.ForeignKey(Products,on_delete=models.CASCADE)
+    SupplierID = models.ForeignKey(MyUser,on_delete=models.CASCADE,db_constraint=False)
+    ProductID = models.ForeignKey(Products,on_delete=models.CASCADE,db_constraint=False)

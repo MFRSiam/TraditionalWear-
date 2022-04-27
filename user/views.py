@@ -6,7 +6,7 @@ from django.contrib.auth.views import LoginView,LogoutView,UserModel
 from django.contrib.auth import get_user_model
 from django.views import generic
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView,DetailView
 from django.contrib.auth.forms import AuthenticationForm
 # Create your views here.
 
@@ -25,9 +25,15 @@ def LoginType(request):
     return render(request,'login.html')
 
 
-class CustomerLogin(LoginView):
+class UserLogin(LoginView):
     template_name = 'login_customer.html'
 
 
-class CustomerLogout(LogoutView):
+class UserLogout(LogoutView):
     template_name = 'customer_logout.html'
+
+
+class UserInfoPanel(DetailView):
+    model = MyUser
+    template_name = 'userHome.html'
+    context_object_name = 'selected_user'

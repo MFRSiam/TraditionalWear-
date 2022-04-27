@@ -1,4 +1,3 @@
-from pyexpat import model
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -17,11 +16,11 @@ class MyUser(AbstractUser):
 
     def __str__(self):
         return self.username
-    
-    
+
+
 class UserAddressInfo(models.Model):
     id = models.BigAutoField(primary_key=True)
-    UserId = models.ForeignKey(MyUser,on_delete=models.CASCADE);
+    UserId = models.ForeignKey(MyUser,on_delete=models.CASCADE, db_constraint=False);
     address = models.TextField()
     def __str__(self):
         return self.UserId

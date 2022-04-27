@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView,DetailView
+from django.views.generic import ListView,DetailView,TemplateView
 from .models import Products
 # Create your views here.
 
@@ -17,3 +17,15 @@ class DetailsPage(DetailView):
 
 def AboutPageView(request):
     return render(request,'about.html')
+
+
+class ShopPage(ListView):
+    model = Products
+    template_name = 'shop.html'
+    context_object_name = 'all_products'
+    
+
+class ContactPage(TemplateView):
+    template_name = 'contact.html'
+
+

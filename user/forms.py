@@ -6,7 +6,7 @@ from .models import MyUser
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm):
         model = MyUser
-        fields = UserCreationForm.Meta.fields + ('phoneNumber',)
+        fields = UserCreationForm.Meta.fields + ('phoneNumber','first_name','last_name','email',)
         
 
 
@@ -18,7 +18,8 @@ class CustomUserChangeForm(UserChangeForm):
 class CustomSupplierCreationForm(UserCreationForm):
     class Meta(UserCreationForm):
         model = MyUser
-        fields = UserCreationForm.Meta.fields + ('phoneNumber',)
+        model.is_supplier = True
+        fields = UserCreationForm.Meta.fields + ('phoneNumber','is_supplier')
         
 
 

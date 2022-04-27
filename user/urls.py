@@ -1,5 +1,5 @@
 from django.urls import path,include
-from .views import SignUpPage,LoginType,SupplierSignUpPage,CustomerLogin,CustomerLogout
+from .views import SignUpPage,LoginType,SupplierSignUpPage,UserLogin,UserLogout,UserInfoPanel
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -7,7 +7,8 @@ urlpatterns = [
     path('signup/',SignUpPage.as_view(),name='signup'),
     path('supplier_signup/',SupplierSignUpPage.as_view(),name='supplier_signup'),
     path('login/',LoginType ,name='login'),
-    path('customer_login',CustomerLogin.as_view(),name='customer_login'),
-    path('logout/',CustomerLogout.as_view(),name='logout'),
+    path('user_login',UserLogin.as_view(),name='user_login'),
+    path('logout/',UserLogout.as_view(),name='logout'),
+    path('user_details/<int:pk>',UserInfoPanel.as_view(),name='user-info')
     # path('<int:pk>')
 ]

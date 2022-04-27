@@ -21,6 +21,7 @@
         <h1 class="fs-2 text text-center mt-5 " style="color:#B9E3C6;">Shop</h1>
 
         <!-- product card start  -->
+
         <div class="row row-cols-1 row-cols-md-3 g-4">
             {% for products in all_products %}
             <div class="col">
@@ -29,21 +30,42 @@
                     <div class="card-body">
                         <h5 class="card-title text-center"><a href="{% url 'product' products.Product_id %}">{{ products.Name }}</a></h5>
                     </div>
+                    {% if user.is_authenticated %}
                     <div class="card-footer " style="background-color: #effaf2; border: none;">
-                        <div class="input-group number-spinner w-75 mx-auto mt-2">
+                        <!-- <div class="input-group number-spinner w-75 mx-auto mt-2">
                             <button id="phone-minus" class="btn btn-default"><i class="fas fa-minus"></i></button>
                             <input id="phone-number" style="height: 2rem;" type="number" min="0"
                                 class="form-control text-center" value="1">
                             <button id="phone-plus" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                        </div> -->
+                        {% if user.is_supplier %}
+                        <div class="d-flex justify-content-center">
+                            <button class=" addCart-btn w-50  mt-2 mb-2"
+                                style="background-color: #B9E3C6;height: 2rem;">Product Info</button>
                         </div>
+                        {% else %}
                         <div class="d-flex justify-content-center">
                             <button class=" addCart-btn w-50  mt-2 mb-2"
                                 style="background-color: #B9E3C6;height: 2rem;">ADD TO CART</button>
                         </div>
+                        {% endif %}
                     </div>
+                    {% endif %}
                 </div>
             </div>
             {% endfor %}
+            {% if user.is_authenticated %}
+            {% if user.is_supplier %}
+            <div class="col">
+                <div class="card h-100">
+                    <img src="{% static 'images/lungi.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title text-center"><a href="#">Add More Products</a></h5>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endif %}
         </div>
 
     </section>
