@@ -53,10 +53,12 @@
                             <a class="nav-link  fs-5 text text-dark" href="{% url 'user-info' user.id %}">{{ user.username }} Admin</a>
                             {% else %}
                                 <a class="nav-link  fs-5 text text-dark" href="{% url 'user-info' user.id %}">{{ user.username }} Customer</a>
+                                <a class="nav-link  fs-5 text text-dark" href="#">Cart</a>
                             {% endif %}
                         {% else %}
                             <a class="nav-link fs-5 text text-dark" href="{% url 'login' %}"><i class="fa-solid fa-user"></i> Log In</a>
                         {% endif %}
+
                     </div>
                     
                 </div>
