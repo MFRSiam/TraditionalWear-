@@ -21,7 +21,7 @@ class MyUser(AbstractUser):
 class UserAddressInfo(models.Model):
     id = models.BigAutoField(primary_key=True)
     UserId = models.ForeignKey(MyUser,on_delete=models.CASCADE, db_constraint=False);
-    address = models.TextField()
+    address = models.TextField(max_length=200,null=True)
     def __str__(self):
-        return self.UserId
+        return str(self.UserId.username)
 
