@@ -10,5 +10,9 @@
 
 {% block content %}
     <h1>New Review</h1>
-    
+    <form method="post">
+        {% csrf_token %}
+        {{ review_from.as_p }}
+        <button type="submit">Add</button>
+    </form>
 {% endblock content %}

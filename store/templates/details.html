@@ -14,12 +14,14 @@
     <p>{{ product.Description }}</p>
     <p>{{ product.Brand }}</p>
     <img src="{{ product.ProductImage.url }}">
-    {% if review %}
+    {% if review != Null %}
     <p>Review Section</p>
-    <p>{{review.CustomerId}}</p>
-    <p>{{review.ReviewDate}}</p>
-    <p>{{review.Ratings}}</p>
-    <p>{{review.Description}}</p>
+        {% for r in review%}
+        <p>{{r.CustomerId}}</p>
+        <p>{{r.ReviewDate}}</p>
+        <p>{{r.Ratings}}</p>
+        <p>{{r.Description}}</p>
+        {% endfor %}
     {% endif %}
     <a href="{% url 'review_page' product.Product_id %}">Add a review</a>
 </div>

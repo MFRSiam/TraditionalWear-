@@ -2,9 +2,10 @@ import datetime
 from venv import create
 from django.shortcuts import render
 from django.views.generic import ListView,DetailView,TemplateView
-from django.http import JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse
 from .models import Products,Orders,OrderedProductInfo,Review,SupplierProductInfo
 import json
+from .forms import ReviewFrom
 # Create your views here.
 
 class HomePage(ListView):
@@ -21,7 +22,7 @@ class HomePage(ListView):
 
 def DetailsPage(request,pk):
     product = Products.objects.get(Product_id=pk)
-    review = Review.objects.filter(ProductId=pk)
+    review = Review.objects.filter(ProductId=product)
     return render(request,'details.html',{'product':product,'review':review})
 
 
@@ -82,4 +83,26 @@ def CartPage(request):
     return render(request,'orders.html',{"orders": orders, "price":price})
 
 def ReviewPage(request,pk):
-    render(request,'add_review.html')
+    user = request.user
+    if request.method == 'POST':
+        review_from = ReviewFrom(request.POST)
+        if review_from.is_valid():
+            y = '/post/' + str(pk) + '/'
+            data = review_from.data
+            review = data['Review']
+            description = data['Description']
+            product = Products.objects.get(Product_id=pk)
+            new_Review = Review(ProductId=product,CustomerId=user,Ratings=review,Description = description)
+            new_Review.save()
+            return HttpResponseRedirect(y)    
+
+        else:
+            context = {
+                'review_from': review_from,
+            }
+    else:
+        context = {
+            'review_from': Review(),
+        }
+        
+    return render(request,'add_review.html',context)

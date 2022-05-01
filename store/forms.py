@@ -1,5 +1,5 @@
 from django import forms
 
-class NameForm(forms.Form):
+class ReviewFrom(forms.Form):
     Review= forms.IntegerField(max_value=10)
-    Description = forms.TextInput()
+    Description = forms.CharField(max_length=150)
