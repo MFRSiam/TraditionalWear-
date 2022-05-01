@@ -49,10 +49,42 @@ def SignUpPage(request):
 
 
 
-class SupplierSignUpPage(generic.CreateView):
-    form_class = CustomSupplierCreationForm
-    success_url = reverse_lazy('login')
-    template_name = 'supplier_signup.html'
+# class SupplierSignUpPage(generic.CreateView):
+#     form_class = CustomSupplierCreationForm
+#     success_url = reverse_lazy('login')
+#     template_name = 'supplier_signup.html'
+
+def SupplierSignUpPage(request):
+    
+    if request.method == 'POST':
+        user_form = CustomSupplierCreationForm(request.POST)
+        address_form = AddressForm(request.POST)
+        
+        if user_form.is_valid() and address_form.is_valid():
+
+            user_form.save()
+            x = MyUser.objects.last()
+            address_form.UserId = x
+            y = address_form.data['address']
+            info = UserAddressInfo(UserId = x,address=y)
+            info.save()
+            return HttpResponseRedirect('/user/login')    
+
+        else:
+            context = {
+                'user_form': user_form,
+                'address_form': address_form,
+            }
+    else:
+        context = {
+            'user_form': MyUser(),
+            'address_form': UserAddressInfo(),
+        }
+        
+    return render(request, 'supplier_signup.html', context)
+
+
+
 
 
 def LoginType(request):
@@ -60,11 +92,11 @@ def LoginType(request):
 
 
 class UserLogin(LoginView):
-    template_name = 'login_customer.html'
+    template_name = 'login_user.html'
 
 
 class UserLogout(LogoutView):
-    template_name = 'customer_logout.html'
+    template_name = 'user_logout.html'
 
 
 class UserInfoPanel(DetailView):

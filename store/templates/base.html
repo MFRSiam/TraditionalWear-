@@ -24,6 +24,25 @@
 
     <!-- css linked  -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script type="text/javascript">
+        var user = '{{request.user}}'
+        function getToken(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getToken('csrftoken');
+    </script>
 
 </head>
 
@@ -53,7 +72,7 @@
                             <a class="nav-link  fs-5 text text-dark" href="{% url 'user-info' user.id %}">{{ user.username }} Admin</a>
                             {% else %}
                                 <a class="nav-link  fs-5 text text-dark" href="{% url 'user-info' user.id %}">{{ user.username }} Customer</a>
-                                <a class="nav-link  fs-5 text text-dark" href="{% url 'logout' %}">Cart</a>
+                                <a class="nav-link  fs-5 text text-dark" href="{% url 'cart_page' %}">Cart</a>
                             {% endif %}
                         {% else %}
                             <a class="nav-link fs-5 text text-dark" href="{% url 'login' %}"><i class="fa-solid fa-user"></i> Log In</a>
@@ -138,6 +157,7 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <script src="{% static 'js/custom.js' %}"></script>
+    <script src="{% static 'js/cart.js' %}"></script>
 </body>
 
 </html>

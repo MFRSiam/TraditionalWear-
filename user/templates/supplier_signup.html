@@ -5,7 +5,8 @@
     <h2>Sign Up(Supplier)</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ user_form.as_p }}
+        {{ address_form.as_p }}
         <button type="submit">Sign Up</button>
     </form>
     <a href="{% url 'signup' %}">Sign-Up As A Customer Instead ?</a>

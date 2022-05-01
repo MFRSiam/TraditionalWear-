@@ -1,0 +1,22 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title %}
+<title>{{ each_product.Name }}</title>
+{% endblock title%}
+
+
+{% block content %}
+    <!-- <h2>{{user.id}}</h2> -->
+    {% for order in orderedProduct%}
+        {% if order.TransactionID.Customer_Id.id == user.id %}
+        <h3>{{order.TransactionID}}</h3>
+        <h3>{{order.TransactionID.Date}}</h3>
+        <h3>{{order.TransactionID.Customer_Id.username}}</h3>
+        <img src="{{order.ProductID.ProductImage.url}}" alt="">
+        <h4>{{order.ProductID.Name}}</h4>
+        <h4>{{order.ProductID.Price}}</h4>
+        <h4>{{order.ProductID.Product_Type}}</h4>
+        {% endif %}
+    {% endfor %}
+{% endblock content %}

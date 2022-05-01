@@ -29,6 +29,7 @@
                     <img src="{{ products.ProductImage.url }}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title text-center"><a href="{% url 'product' products.Product_id %}">{{ products.Name }}</a></h5>
+                        <h5 class="card-title text-center">{{ products.Price }}/=</h5>
                     </div>
                     {% if user.is_authenticated %}
                     <div class="card-footer " style="background-color: #effaf2; border: none;">
@@ -45,8 +46,7 @@
                         </div>
                         {% else %}
                         <div class="d-flex justify-content-center">
-                            <button class=" addCart-btn w-50  mt-2 mb-2"
-                                style="background-color: #B9E3C6;height: 2rem;">ADD TO CART</button>
+                            <button data-product="{{products.Product_id}}" data-action="add" class=" addCart-btn w-50  mt-2 mb-2 update-cart" style="background-color: #B9E3C6;height: 2rem;">ADD TO CART</button>
                         </div>
                         {% endif %}
                     </div>

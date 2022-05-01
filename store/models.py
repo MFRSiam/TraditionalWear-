@@ -25,6 +25,8 @@ class Orders(models.Model):
     TransactionID =models.CharField(primary_key=True,default='XXX',max_length=50)
     Date = models.DateTimeField(auto_now_add=True)
     Customer_Id = models.ForeignKey(MyUser,on_delete=models.CASCADE,db_constraint=False)
+    ProductID = models.ForeignKey(Products,on_delete=models.CASCADE,db_constraint=False,default=NULL)
+    Amount = models.IntegerField(default=1)
     def __str__(self) -> str:
         return self.TransactionID
 
