@@ -3,9 +3,13 @@
 
 
 {% block content %}
-    <h1> Already Have a Account </h1>
-    <a href="{% url 'user_login' %}">Login</a>
 
-    <h2>Dont Have a Account</h2>
-    <a href="{% url 'signup' %}">Sign-UP</a>
+<div  class="container p-5 d-flex flex-column align-items-center mt-5 rounded shadow-sm" style="background-color: #dff1e5;">
+    <h5> Already Have a Account? </h5>
+    <a style="text-decoration: none; font-size: 1.5rem;" href="{% url 'user_login' %}">Login</a>
+
+    <h5>Dont Have a Account?</h5>
+    <a style="text-decoration: none; font-size: 1.5rem;" href="{% url 'signup' %}">Sign-Up</a>
+</div>
+   
 {% endblock content %}

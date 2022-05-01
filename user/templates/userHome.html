@@ -2,17 +2,21 @@
 {% load static %}
 
 {% block content %}
-    <h1>user Home</h1>
+<div class="container text-center mt-5">
+    <h1>Welcome {{selected_user.UserId.username}}! </h1>
+</div>
+    
 
 
     {% if selected_user.address != None %}
-    <p>{{selected_user.UserId.username}}</p>
-    <p>{{selected_user.UserId.first_name}}</p>
-    <p>{{selected_user.UserId.last_name}}</p>
-    <p>{{selected_user.UserId.email}}</p>
-    <p>{{selected_user.UserId.date_joined}}</p>
-    <p>{{selected_user.address}}</p>
-    {% if selected_user.UserId.is_supplier %}
+    <div class="container mt-2 d-flex flex-column p-5 rounded fs-4 text text-dark shadow " style="background-color: #d9f4e2;">
+        <p>{{selected_user.UserId.username}}</p>
+        <p>{{selected_user.UserId.first_name}}</p>
+        <p>{{selected_user.UserId.last_name}}</p>
+        <p>{{selected_user.UserId.email}}</p>
+        <p> Joined : {{selected_user.UserId.date_joined}}</p>
+        <p> Address : {{selected_user.address}}</p>
+        {% if selected_user.UserId.is_supplier %}
         <p>Dear Valued Supplier</p>
     {% else %}
         <p>Dear Valued Customer</p>
@@ -21,7 +25,14 @@
     {% else %}
         <a href="#">Please Give Address</a>
     {% endif %}
-    <a href="{% url 'logout' %}">Logout</a>
+    <a class="d-flex justify-content-center text-dark" style="text-decoration: underline;" href="{% url 'logout' %}">Logout</a>
+    </div>
+   
+   
+    <!-- <div class="container d-flex justify-content-center " >
+       
+    </div> -->
+    
     <!-- <p>selected_user.is_supplier</p>
     <p>selected_user.UserAddressInfo.</p> -->
     

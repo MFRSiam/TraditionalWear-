@@ -2,28 +2,43 @@
 {% load static %}
 
 {% block title %}
-<title>{{ each_product.Name }}</title>
+
+    
+    <title>{{ each_product.Name }}</title>
+
 {% endblock title%}
 
 
 {% block content %}
 <div class="post-entry">
-    <h2>{{ product.Name }}</h2>
-    <p>{{ product.Price }}</p>
-    <p>{{ product.Product_Type }}</p>
-    <p>{{ product.Description }}</p>
-    <p>{{ product.Brand }}</p>
-    <img src="{{ product.ProductImage.url }}">
-    {% if review != Null %}
-    <p>Review Section</p>
-        {% for r in review%}
-        <p>{{r.CustomerId}}</p>
-        <p>{{r.ReviewDate}}</p>
-        <p>{{r.Ratings}}</p>
-        <p>{{r.Description}}</p>
-        {% endfor %}
-    {% endif %}
-    <a href="{% url 'review_page' product.Product_id %}">Add a review</a>
+    <div class="container fs-4 bg-light text border mt-5 rounded pb-5 px-5">
+        <div class="mt-5  w-50 text-start">
+            <h2>{{ product.Name }}</h2>
+        </div>
+        <div class="w-50 mt-3 mb-3">
+            <img style="width: 55%; border-radius: 5%; margin: 5%;" src="{{ product.ProductImage.url }}">
+        </div>
+        
+        <p>{{ product.Price }} BDT</p>
+        <h6>Category:</h6>
+        <p>{{ product.Product_Type }}</p>
+        <h6>Description:</h6>
+        <p>{{ product.Description }}</p>
+        <h6>Brand:</h6>
+        <p>{{ product.Brand }}</p>
+        
+        {% if review != Null %}
+        <h6>Review Section</h6>
+            {% for r in review%}
+            <p>{{r.CustomerId}}</p>
+            <p>{{r.ReviewDate}}</p>
+            <p>{{r.Ratings}}</p>
+            <p>{{r.Description}}</p>
+            {% endfor %}
+        {% endif %}
+        <a style="text-decoration: underline;" class="text-dark" href="{% url 'review_page' product.Product_id %}">Add a review</a>
+    </div>
+    
 </div>
 
 {% endblock content %}
