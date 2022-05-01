@@ -8,12 +8,20 @@
 
 {% block content %}
 <div class="post-entry">
-    <h2>{{ each_product.Name }}</h2>
-    <p>{{ each_product.Price }}</p>
-    <p>{{ each_product.Product_Type }}</p>
-    <p>{{ each_product.Description }}</p>
-    <p>{{ each_product.Brand }}</p>
-    <img src="{{ each_product.ProductImage.url }}">
+    <h2>{{ product.Name }}</h2>
+    <p>{{ product.Price }}</p>
+    <p>{{ product.Product_Type }}</p>
+    <p>{{ product.Description }}</p>
+    <p>{{ product.Brand }}</p>
+    <img src="{{ product.ProductImage.url }}">
+    {% if review %}
+    <p>Review Section</p>
+    <p>{{review.CustomerId}}</p>
+    <p>{{review.ReviewDate}}</p>
+    <p>{{review.Ratings}}</p>
+    <p>{{review.Description}}</p>
+    {% endif %}
+    <a href="{% url 'review_page' product.Product_id %}">Add a review</a>
 </div>
 
 {% endblock content %}

@@ -13,11 +13,17 @@ class HomePage(ListView):
     context_object_name = 'all_products'
 
 
-class DetailsPage(DetailView):
-    model = Products
-    template_name = 'details.html'
-    context_object_name = 'each_product'
-    
+# class DetailsPage(DetailView):
+#     model = Products
+#     template_name = 'details.html'
+#     context_object_name = 'each_product'
+
+
+def DetailsPage(request,pk):
+    product = Products.objects.get(Product_id=pk)
+    review = Review.objects.filter(ProductId=pk)
+    return render(request,'details.html',{'product':product,'review':review})
+
 
 def AboutPageView(request):
     return render(request,'about.html')
@@ -35,19 +41,26 @@ class ContactPage(TemplateView):
 
 def UpdateCart(request):
     data =json.loads(request.body)
-    productId = data['productId']
     action = data['action']
-    # print("Action" ,action , " ProductID: ", productId)
+    if action == 'add':
+        productId = data['productId']
+        # print("Action" ,action , " ProductID: ", productId)
 
-    user = request.user
-    product = Products.objects.get(Product_id=productId)
-    
-    # order,create = order.objects.get_or_create(TransactionI = transactionid(product.Name,product.Product_Type),Customer_Id = user)
-    x = Orders(TransactionID = transactionid(product.Name,product.Product_Type),Customer_Id = user,ProductID=product)
-    x.save()
-    # y = OrderedProductInfo(TransactionID=x,ProductID=product)
-    # y.save()
-    return JsonResponse('Data Was Added',safe=False)
+        user = request.user
+        product = Products.objects.get(Product_id=productId)
+        
+        # order,create = order.objects.get_or_create(TransactionI = transactionid(product.Name,product.Product_Type),Customer_Id = user)
+        x = Orders(TransactionID = transactionid(product.Name,product.Product_Type),Customer_Id = user,ProductID=product)
+        x.save()
+        # y = OrderedProductInfo(TransactionID=x,ProductID=product)
+        # y.save()
+        return JsonResponse('Data Was Added',safe=False)
+    elif action == 'remove':
+        orderId = data['orderId']
+        user = request.user
+        Orders.objects.filter(TransactionID=orderId).delete()
+        return JsonResponse('Data Was Deleted Successfully',safe=False)
+
 
 
 def transactionid(productname,producttype):
@@ -58,7 +71,15 @@ def transactionid(productname,producttype):
 
 def CartPage(request):
     user = request.user
-    count =0
+    price =0
     orders = Orders.objects.all()
-    orderedProduct = OrderedProductInfo.objects.all()
-    return render(request,'orders.html',{"orders": orders,"orderedProduct":orderedProduct, "count":count})
+    user = request.user
+    for order in orders:
+        if(order.Customer_Id.id == user.id): 
+            price += int(order.ProductID.Price)
+    
+    # orderedProduct = OrderedProductInfo.objects.all()
+    return render(request,'orders.html',{"orders": orders, "price":price})
+
+def ReviewPage(request,pk):
+    render(request,'add_review.html')
