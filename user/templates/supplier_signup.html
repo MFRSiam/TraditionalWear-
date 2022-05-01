@@ -2,12 +2,25 @@
 {% load static %}
 
 {% block content %}
-    <h2>Sign Up(Supplier)</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ user_form.as_p }}
-        {{ address_form.as_p }}
-        <button type="submit">Sign Up</button>
-    </form>
-    <a href="{% url 'signup' %}">Sign-Up As A Customer Instead ?</a>
+
+<div class="container p-5 border mt-5 rounded w-25 mx-auto" style="background-color: #dff8e7;;">
+    <div>
+        <h5 class="text-center">Sign Up(Supplier)</h5>
+    </div>
+    <div class="d-flex justify-content-center mt-3 mb-3">
+        <form method="post">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            {{ address_form.as_p }}
+            <button class="text-center  fs-5 text px-5 py-1 border rounded" style="background-color: #7ede9c;" type="submit">Sign Up</button>
+        </form>
+       
+    </div>
+    <div class="text-center">
+        <a style="text-decoration: none;" href="{% url 'signup' %}">Sign-Up As A Customer Instead ?</a>
+    </div>
+</div>
+
+
+   
 {% endblock content %}

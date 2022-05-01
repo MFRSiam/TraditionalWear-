@@ -5,14 +5,14 @@
 {% block content %}
 <div class="container p-5  mt-5 rounded" style="background-color: #e6f6eb;">
     <div class="text-center mb-5">
-        <h5>Log In</h5>
+        <h5 style="color: #339f55; font-size: 1.5em;">Log In</h5>
     </div>
     
     <form class="d-flex align-items-center justify-content-center flex-column" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+     {{ form.as_p }}
     <div class="d-flex flex-column align-items-center">
-        <button class="text-center ms-5 fs-5 text px-5 py-1 border-0 rounded" style="background-color: #B9E3C6;;"   type="submit">Log In</button>
+        <button class="text-center ms-5 fs-5 text px-5 py-1 border-0 rounded" style="background-color: #B9E3C6;"   type="submit">Log In</button>
     </div>
     </form>
     <h5>Dont Have a Account?</h5>
