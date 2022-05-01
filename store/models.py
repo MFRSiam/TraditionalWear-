@@ -18,7 +18,7 @@ class Products(models.Model):
     ProductImage = models.ImageField(upload_to='images/')
     def __str__(self):
         sid = str(self.Product_id)
-        return self.Name + " ID: " + sid
+        return str(self.Name) + " ID: " + sid
 
 
 class Orders(models.Model):
@@ -33,8 +33,8 @@ class Orders(models.Model):
 class OrderedProductInfo(models.Model):
     TransactionID = models.ForeignKey(Orders,on_delete=models.CASCADE,db_constraint=False)
     ProductID = models.ForeignKey(Products,on_delete=models.CASCADE,db_constraint=False,default=NULL)
-    def __str__(self) -> str:
-        return self.ProductID + " " + self.TransactionID
+    # def __str__(self) -> str:
+    #     return self.ProductID + " " + self.TransactionID
     
 class Review(models.Model):
     ProductId = models.ForeignKey(Products,on_delete=models.CASCADE,db_constraint=False)

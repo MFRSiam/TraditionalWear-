@@ -43,10 +43,10 @@ def UpdateCart(request):
     product = Products.objects.get(Product_id=productId)
     
     # order,create = order.objects.get_or_create(TransactionI = transactionid(product.Name,product.Product_Type),Customer_Id = user)
-    x = Orders(TransactionID = transactionid(product.Name,product.Product_Type),Customer_Id = user)
+    x = Orders(TransactionID = transactionid(product.Name,product.Product_Type),Customer_Id = user,ProductID=product)
     x.save()
-    y = OrderedProductInfo(TransactionID=x,ProductID=product)
-    y.save()
+    # y = OrderedProductInfo(TransactionID=x,ProductID=product)
+    # y.save()
     return JsonResponse('Data Was Added',safe=False)
 
 
