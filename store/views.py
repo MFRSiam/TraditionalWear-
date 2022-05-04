@@ -1,11 +1,14 @@
 import datetime
+import io
 from venv import create
 from django.shortcuts import render
 from django.views.generic import ListView,DetailView,TemplateView
-from django.http import HttpResponseRedirect, JsonResponse
+from django.views.generic.edit import CreateView
+from django.http import HttpResponseRedirect, JsonResponse,FileResponse
 from .models import Products,Orders,OrderedProductInfo,Review,SupplierProductInfo
 import json
-from .forms import ReviewFrom
+from .forms import ReviewFrom, ProductAddFrom
+from reportlab.pdfgen import canvas
 # Create your views here.
 
 class HomePage(ListView):
@@ -34,7 +37,12 @@ class ShopPage(ListView):
     model = Products
     template_name = 'shop.html'
     context_object_name = 'all_products'
-    
+
+
+def AllProducts(request):
+    prod = Products.objects.all().values()
+    return JsonResponse({'prod':list(prod)},safe=False)
+
 
 class ContactPage(TemplateView):
     template_name = 'contact.html'
@@ -102,7 +110,66 @@ def ReviewPage(request,pk):
             }
     else:
         context = {
-            'review_from': Review(),
+            'review_from': ReviewFrom(),
         }
         
     return render(request,'add_review.html',context)
+
+
+
+def ProductAddPage(request):
+    user = request.user
+    if request.method == 'POST':
+        product_add_form = ProductAddFrom(request.POST,request.FILES)
+
+        if product_add_form.is_valid():
+            # data = product_add_form.data
+            # Name = data['Name']
+            # Price = data['Price']
+            # Product_Type = data['Product_Type']
+            # Description = data['Description']
+            # Brand = data['Brand']
+            # ProductImage = data['ProductImage']
+            # newProduct = Products(Name=Name,Price=Price,Product_Type=Product_Type,Description=Description,Brand=Brand,ProductImage=ProductImage)
+            # newProduct.save()
+            product_add_form.save()
+            return HttpResponseRedirect('')    
+
+        else:
+            context = {
+                'review_from': product_add_form
+            }
+    else:
+        context = {
+            'review_from': ProductAddFrom()
+        }
+        
+    return render(request,'addProduct.html',context)
+
+class ProductAdd(CreateView):
+    model = Products
+    template_name = 'addProduct.html'
+    fields = ['Name', 'Price','Product_Type','ProductImage','Description','Brand']
+
+
+def CheckOut(request):
+    user = request.user
+    orders = Orders.objects.filter(Customer_Id = user)
+    buffer = io.BytesIO()
+    p = canvas.Canvas(buffer)
+    i=50
+    j=700
+    total = 0
+    for order in orders:
+        p.drawString(i, j-10, str(order.TransactionID))
+        p.drawString(i+10, j-70, str(order.Date))
+        p.drawString(i+40, j-90, str(order.ProductID.Price))
+        total += int(order.ProductID.Price)
+        j = j-90
+        order.ProductID.delete()
+    p.drawString(i+40, j-90, str(total))
+    p.showPage()
+    p.save()
+    buffer.seek(0)
+    Orders.objects.filter(Customer_Id=user).delete()
+    return FileResponse(buffer, as_attachment=True, filename='slip.pdf')

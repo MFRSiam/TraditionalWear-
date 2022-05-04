@@ -7,13 +7,7 @@
 
 {% block content %}
 <main class="container">
-    <!-- search section start  -->
-    <div class="input-group mb-3 mt-3 ">
-        <input type="text" class="form-control" placeholder="Sharee" aria-label="Recipient's username"
-            aria-describedby="button-addon2">
-        <button class="btn   fs-4 text" style="background-color: #B9E3C6;color: black;" type="button"
-            id="button-addon2">Search</button>
-    </div>
+    
     <!-- shops section start -->
     <section class="">
 
@@ -60,7 +54,7 @@
                 <div class="card h-100">
                     <img src="{% static 'images/lungi.jpg' %}" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title text-center"><a href="#">Add More Products</a></h5>
+                        <h5 class="card-title text-center"><a href="{% url 'add_product' %}">Add More Products</a></h5>
                     </div>
                 </div>
             </div>
