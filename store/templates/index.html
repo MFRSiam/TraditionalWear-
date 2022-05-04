@@ -25,7 +25,7 @@
                 <div class="card h-100">
                     <img src="{{ products.ProductImage.url }}" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title text-center"><a href="{% url 'product' products.Product_id %}">{{ products.Name }}</a></h5>
+                        <h5 class="card-title text-center" ><a href="{% url 'product' products.Product_id %}" >{{ products.Name }}</a></h5>
                         <h5 class="card-title text-center">{{ products.Price }}/=</h5>
                     </div>
                     {% if user.is_authenticated %}
