@@ -28,12 +28,29 @@
         <p>{{ product.Brand }}</p>
         
         {% if review != Null %}
-        <h6>Review Section</h6>
+        <h6 class="container">Review Section</h6>
             {% for r in review%}
-            <p>{{r.CustomerId}}</p>
-            <p>{{r.ReviewDate}}</p>
-            <p>{{r.Ratings}}</p>
-            <p>{{r.Description}}</p>
+            <div class="row">
+                <div class="col-sm-7">
+                    <hr/>
+                    <div class="review-block">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
+                                <div class="review-block-name"><a href="#">{{r.CustomerId}}</a></div>
+                                <div class="review-block-date">{{r.ReviewDate}}</div>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="review-block-rate">
+                                    <p>{{r.Ratings}}</p>
+                                </div>
+                                <div class="review-block-description">{{r.Description}}</div>
+                            </div>
+                        </div>
+                        <hr/>
+                    </div>
+                </div>
+            </div>
             {% endfor %}
         {% endif %}
         <a style="text-decoration: underline;" class="text-dark" href="{% url 'review_page' product.Product_id %}">Add a review</a>

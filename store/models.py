@@ -1,5 +1,6 @@
 from asyncio.windows_events import NULL
 from django.db import models
+from django.urls import reverse
 from user.models import MyUser
 import datetime
 # Create your models here.
@@ -19,6 +20,9 @@ class Products(models.Model):
     def __str__(self):
         sid = str(self.Product_id)
         return str(self.Name) + " ID: " + sid
+    
+    def get_absolute_url(self): # new
+        return reverse('product', args=[str(self.Product_id)])
 
 
 class Orders(models.Model):

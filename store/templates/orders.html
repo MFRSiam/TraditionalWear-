@@ -22,7 +22,7 @@
         {% endif %}
     {% endfor %}
         <h5>Total {{price}}</h5>
-
+        <a href="{% url 'checkOut' %}">Checkout</a>
         <script>
             var updateBtn = document.getElementsByClassName("delete-cart")
             for(var i=0;i<updateBtn.length;i++){

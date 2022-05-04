@@ -9,9 +9,16 @@
 
 
 {% block content %}
-<div class="row row-cols-1 row-cols-md-3 g-4">
+<!-- search section start  -->
+<div class="input-group mb-3 mt-3 ">
+    <input type="text" class="form-control search_product_bar" placeholder="Sharee" aria-label="Recipient's username"
+        aria-describedby="button-addon2">
+    <button class="btn   fs-4 text search_product" style="background-color: #B9E3C6;color: black;" type="button"
+        id="button-addon2">Search</button>
+</div>
+<div class="row row-cols-1 row-cols-md-3 g-4" id="update_here">
     {% for products in all_products %}
-    <div class="col">
+    <div class="col items">
         <div class="card h-100">
             <img src="{{ products.ProductImage.url }}" class="card-img-top" alt="...">
             <div class="card-body">
@@ -32,5 +39,95 @@
         </div>
     </div>
     {% endfor %}
+
+    <script>
+        var clicked = 0
+        var updateBtn = document.getElementsByClassName("search_product")
+            for(var i=0;i<updateBtn.length;i++){
+                updateBtn[i].addEventListener('click',function(){
+                    var info  = document.getElementsByClassName("search_product_bar")
+                    for(var j=0;j<info.length;j++){
+                        //console.log(info[j].value)
+                        searchTerm = info[j].value
+                        searchBar(searchTerm)
+                    }
+                })
+            }
+
+            function searchBar(value){
+                url ='/prod_api/'
+                fetch(url,{
+                    method: 'GET',
+                }).then((response)=>{
+                    return response.json()
+                }).then((data)=>{
+                    var arr = []
+                    //console.log(data['prod'][0])
+                    use = data['prod']
+                    for(var j = 0;j<use.length;j++){
+                        //console.log(use[j])
+                        arr[j] = use[j].Name
+                    }
+                    //console.log(use)
+                    var results = test(arr, value);
+                    //console.log(results)
+                    if(clicked < 1){
+                        ShowData(use,results)
+                    }else{
+                        removeChild()
+                        ShowData(use,results)
+                    }
+
+                })
+            }
+
+            function test(arr, sub) {
+                sub = sub.toLowerCase();
+                return arr.map(str => str
+                    .toLowerCase()
+                    .startsWith(sub.slice(0, Math.max(str.length - 1, 1)))
+                );
+            }
+            
+
+            function ShowData(data,arr){
+                var returndata = ""
+                for(var i=0;i<arr.length;i++){
+                    if(arr[i]===true){
+                        returndata = `<div class="col items">
+                            <div class="card h-100">
+                                <img src="../media/${data[i].ProductImage}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center"><a href="/post/${data[i].Product_id}">${data[i].Name}</a></h5>
+                                </div>
+                                <div class="card-footer " style="background-color: #effaf2; border: none;">
+                                    <div class="input-group number-spinner w-75 mx-auto mt-2">
+                                        <button id="phone-minus" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                                        <input id="phone-number" style="height: 2rem;" type="number" min="0"
+                                            class="form-control text-center" value="1">
+                                        <button id="phone-plus" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                                    </div>
+                                    <div class="d-flex justify-content-center">
+                                        <button class=" addCart-btn w-50  mt-2 mb-2"
+                                            style="background-color: #B9E3C6;height: 2rem;">ADD TO CART</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`
+                    }
+                }
+                var x = document.getElementById("update_here").insertAdjacentHTML("beforebegin",returndata)
+                clicked++
+                console.log(x)
+                console.log(returndata)
+            }
+
+            function removeChild(){
+                var x = document.getElementById("update_here")
+                var y = document.getElementsByClassName("items")
+                x.parentNode.removeChild(y[0])
+
+            }
+    </script>
 </div>
 {% endblock content %}
