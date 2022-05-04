@@ -24,6 +24,7 @@
 
     <!-- css linked  -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     <script type="text/javascript">
         var user = '{{request.user}}'
         function getToken(name) {
@@ -64,7 +65,7 @@
                         <a class="nav-link fs-5 text text-dark" href="{% url 'shop' %}">Shop</a>
                         <a class="nav-link fs-5 text text-dark" href="{% url 'about' %}">About</a>
                         <a class="nav-link  fs-5 text text-dark" href="{% url 'contacts' %}">Contact</a>
-                        <!-- <a class="nav-link  fs-5 text text-dark" href="#"><i class="fa-solid fa-cart-shopping"></i></a> -->
+                        
                         {% if user.is_authenticated %}
                             {% if user.is_supplier %}
                                 <a class="nav-link  fs-5 text text-dark" href="{% url 'user-info' user.id %}"><i class="fa-solid fa-user"></i>{{ user.username }} </a>
@@ -72,7 +73,10 @@
                             <a class="nav-link  fs-5 text text-dark" href="{% url 'user-info' user.id %}"><i class="fa-duotone fa-hammer"></i>{{ user.username }} </a>
                             {% else %}
                                 <a class="nav-link  fs-5 text text-dark" href="{% url 'user-info' user.id %}"><i class="fa-solid fa-user-plus"></i>{{ user.username }}</a>
-                                <a class="nav-link  fs-5 text text-dark" href="{% url 'cart_page' %}"><i class="fa-solid fa-cart-shopping"></i></a>
+                                <a class="nav-link  fs-5 text text-dark position-relative" href="{% url 'cart_page' %}"><i class="fa-solid fa-cart-shopping"></i><span id="card-badge" class="position-absolute  start-100 translate-middle p-2 bg-danger border border-light rounded-circle d-none"></span></a>
+                                
+
+                                
                             {% endif %}
                         {% else %}
                             <a class="nav-link fs-5 text text-dark" href="{% url 'login' %}"><i class="fa-solid fa-user"></i> Log In</a>
@@ -120,15 +124,17 @@
               <div class="col-lg-2 text-white mt-3 col-md-6 px-4">
                 <h3 class="fs-5 text ">Company</h3>
                 <ul  class="footer-list ">
-                    <li><a href="#">About</a></li>
+                    <li><a href="{% url 'about' %}">About</a></li>
                     <li><a href="#">Experts and Spokesmodels</a></li>
                 </ul>
               </div>
               <div class="col-lg-2 text-white mt-3 col-md-6 px-4">
                 <h3 class="fs-5 text ">Customer Service</h3>
                 <ul class="footer-list">
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">My Account</a></li>
+                    <li><a href="{% url 'contacts' %}">Contact Us</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'user-info' user.id %}">My Account</a></li>
+                    {% endif %}
                     <li><a href="#">Store Locator</a></li>
                     <li><a href="#">Redeem rewards</a></li>
                     

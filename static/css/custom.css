@@ -1,0 +1,11 @@
+.background-img-section{
+    margin-top: 1em;
+    border-radius: 1.5em;
+    background-image: url("https://images.pexels.com/photos/2884867/pexels-photo-2884867.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260");
+    height: 500px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  };
+ 

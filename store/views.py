@@ -172,4 +172,4 @@ def CheckOut(request):
     p.save()
     buffer.seek(0)
     Orders.objects.filter(Customer_Id=user).delete()
-    return FileResponse(buffer, as_attachment=True, filename='slip.pdf')
+    return FileResponse(buffer, as_attachment=True, filename='invoice.pdf')

@@ -1,4 +1,5 @@
 var updateBtn = document.getElementsByClassName("update-cart")
+const cartBadge = document.getElementById("card-badge");
 
 
 for(var i=0;i<updateBtn.length;i++){
@@ -29,5 +30,7 @@ function UpdateUserOrder(productId ,Action){
         return response.json()
     }).then((data)=>{
         console.log("Data: " , data)
+        cartBadge.classList.remove('d-none');
+        // cartBadge.classList.add('d-block');
     })
 }

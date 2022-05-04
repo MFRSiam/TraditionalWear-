@@ -8,49 +8,65 @@
 
 {% block content %}
     <!-- <h2>{{user.id}}</h2> -->
-    {% for order in orders%}
-        {% if order.Customer_Id.id == user.id %}
-        <h3>{{order.TransactionID}}</h3>
-        <h3>{{order.Date}}</h3>
-        <h3>{{order.Customer_Id.username}}</h3>
-        <img src="{{order.ProductID.ProductImage.url}}" alt="">
-        <h4>{{order.ProductID.Name}}</h4>
-        <h4>{{order.ProductID.Price}}</h4>
-        <h4>{{order.ProductID.Product_Type}}</h4>
-        <button data-order="{{order.TransactionID}}" data-action="remove" class=" addCart-btn w-50  mt-2 mb-2 delete-cart" style="background-color: #B9E3C6;height: 2rem;">Remove From Cart</button>
-
-        {% endif %}
-    {% endfor %}
-        <h5>Total {{price}}</h5>
-        <a href="{% url 'checkOut' %}">Checkout</a>
-        <script>
-            var updateBtn = document.getElementsByClassName("delete-cart")
-            for(var i=0;i<updateBtn.length;i++){
-                updateBtn[i].addEventListener('click',function(){
-                    var orderId = this.dataset.order
-                    var action = this.dataset.action
-                    console.log('productId: ',orderId, ' Action: ',action)
-                    console.log('USER: ',user)
-                    DeleteUserOrder(orderId,action)
-                })
-            }
-
-            function DeleteUserOrder(orderId ,Action){
-                console.log('User Is Logged In, Sending Data')
-                url = '/update_cart/'
-                fetch(url,{
-                    method: 'POST',
-                    headers:{
-                        'Content-Type':'application/json',
-                        'X-CSRFToken' : csrftoken,
-                    },
-                    body:JSON.stringify({'orderId': orderId , 'action': Action})
-                }).then((response)=>{
-                    return response.json()
-                }).then((data)=>{
-                    console.log("Data: " , data)
-                    document.location.reload(true)
-                })
-            }
-        </script>
+    <div class="container mt-5 w-75">
+        <div class="w-75">
+            {% for order in orders%}
+            {% if order.Customer_Id.id == user.id %}
+            <h5>{{order.TransactionID}}</h5>
+            <h6>{{order.Date}}</h6>
+            
+            <img class="w-25" src="{{order.ProductID.ProductImage.url}}" alt="">
+            <h5>{{order.ProductID.Name}}</h5>
+            <h5>{{order.ProductID.Price}}</h5>
+            <h5>{{order.ProductID.Product_Type}}</h5>
+            <h5>{{order.Customer_Id.username}}</h5>
+            <button data-order="{{order.TransactionID}}" data-action="remove" class=" addCart-btn w-25  mt-2 mb-5 delete-cart" style="background-color: #B9E3C6;height: 2rem;">Remove From Cart</button>
+            <hr>
+    
+            {% endif %}
+        {% endfor %}
+        <div class="d-flex flex-column align-items-center">
+            
+            <div>
+                <h4>Total {{price}}</h4>
+            </div>
+            <div>
+                <a  href="{% url 'checkOut' %}" class=" px-3 py-2 rounded text-center fs-5 text" style="background-color: #B9E3C6; text-decoration: none; display: block; margin-top: 10px; ">Checkout</a>
+            </div>
+        </div>
+            
+            <script>
+                var updateBtn = document.getElementsByClassName("delete-cart")
+                for(var i=0;i<updateBtn.length;i++){
+                    updateBtn[i].addEventListener('click',function(){
+                        var orderId = this.dataset.order
+                        var action = this.dataset.action
+                        console.log('productId: ',orderId, ' Action: ',action)
+                        console.log('USER: ',user)
+                        DeleteUserOrder(orderId,action)
+                    })
+                }
+    
+                function DeleteUserOrder(orderId ,Action){
+                    console.log('User Is Logged In, Sending Data')
+                    url = '/update_cart/'
+                    fetch(url,{
+                        method: 'POST',
+                        headers:{
+                            'Content-Type':'application/json',
+                            'X-CSRFToken' : csrftoken,
+                        },
+                        body:JSON.stringify({'orderId': orderId , 'action': Action})
+                    }).then((response)=>{
+                        return response.json()
+                    }).then((data)=>{
+                        console.log("Data: " , data)
+                        document.location.reload(true)
+                    })
+                }
+            </script>
+        </div>
+       
+    </div>
+    
 {% endblock content %}

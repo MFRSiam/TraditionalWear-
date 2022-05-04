@@ -8,10 +8,18 @@
 
 
 {% block content %}
-    <h1>New Review</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ review_from.as_p }}
-        <button type="submit">Add</button>
-    </form>
+<div class="container mt-5 p-5 rounded" style="background-color: rgb(222, 245, 235);">
+    <div class="text-center">
+        <h3>Write a  Review</h3>
+    </div>
+    <div class="mt-3">
+        <form method="post">
+            {% csrf_token %}
+            {{ review_from.as_p }}
+            <button class=" px-3 py-2 rounded text-center fs-5 text w-25 fw-bold" style="background-color: #B9E3C6;  margin-top: 10px;"  type="submit">Add</button>
+        </form>
+    </div>
+</div>
+    
+    
 {% endblock content %}

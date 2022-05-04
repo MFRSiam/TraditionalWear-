@@ -1,6 +1,7 @@
 .img-logo{
  width:50px;
 }
+
 .input-email,.subscribe-btn{
     width: 50%;
    height: 40px;
@@ -21,12 +22,7 @@
     color: #B9E3C6;
     
 }
-.contact{
-  background-color: red;
-}
-/* .logout-btn a{
-  text-decoration: none;
-} */
+
 
 @media only screen and (min-width: 992px) {
     .subscribe-div {
@@ -41,7 +37,7 @@
     }
     
   }
-@media only screen and (min-width: 200px) {
+@media only screen and (max-width: 991px) {
     .subscribe-div {
       border-bottom: 1px solid white;
     }
