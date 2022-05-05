@@ -9,3 +9,7 @@ class Supplier(AbstractUser):
     
     def __str__(self):
         return self.username
+
+
+Test_Customer4
+121asdfghjkl
